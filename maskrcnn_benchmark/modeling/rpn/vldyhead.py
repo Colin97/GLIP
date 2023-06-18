@@ -363,7 +363,7 @@ class VLFuse(torch.nn.Module):
             self.dummy_tensor = torch.ones(1, dtype=torch.float32, requires_grad=True)
 
         # early fusion module
-        print("EARLY FUSION ON, USING {}".format(cfg.MODEL.DYHEAD.FUSE_CONFIG.TYPE))
+        #print("EARLY FUSION ON, USING {}".format(cfg.MODEL.DYHEAD.FUSE_CONFIG.TYPE))
         if cfg.MODEL.DYHEAD.FUSE_CONFIG.TYPE == "MHA-S":
             # single-direction (text->image)
             # text -> image

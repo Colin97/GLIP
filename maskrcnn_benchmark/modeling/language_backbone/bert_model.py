@@ -12,7 +12,7 @@ class BertEncoder(nn.Module):
         super(BertEncoder, self).__init__()
         self.cfg = cfg
         self.bert_name = cfg.MODEL.LANGUAGE_BACKBONE.MODEL_TYPE
-        print("LANGUAGE BACKBONE USE GRADIENT CHECKPOINTING: ", self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT)
+        #print("LANGUAGE BACKBONE USE GRADIENT CHECKPOINTING: ", self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT)
 
         if self.bert_name == "bert-base-uncased":
             config = BertConfig.from_pretrained(self.bert_name)

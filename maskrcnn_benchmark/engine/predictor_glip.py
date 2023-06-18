@@ -185,17 +185,18 @@ class GLIPDemo(object):
             caption_string = ""
             tokens_positive = []
             seperation_tokens = " . "
+            self.entities = original_caption
             for word in original_caption:
                 
-                tokens_positive.append([len(caption_string), len(caption_string) + len(word)])
+                tokens_positive.append([[len(caption_string), len(caption_string) + len(word)]])
                 caption_string += word
                 caption_string += seperation_tokens
             
             tokenized = self.tokenizer([caption_string], return_tensors="pt")
-            tokens_positive = [tokens_positive]
+            tokens_positive = tokens_positive
 
             original_caption = caption_string
-            print(tokens_positive)
+            #print(tokens_positive)
         else:
             tokenized = self.tokenizer([original_caption], return_tensors="pt")
             if custom_entity is None:
@@ -218,7 +219,7 @@ class GLIPDemo(object):
         with torch.no_grad():
             predictions = self.model(image_list, captions=[original_caption], positive_map=positive_map_label_to_token)
             predictions = [o.to(self.cpu_device) for o in predictions]
-        print("inference time per image: {}".format(timeit.time.perf_counter() - tic))
+        #print("inference time per image: {}".format(timeit.time.perf_counter() - tic))
 
         # always single image is passed at a time
         prediction = predictions[0]
@@ -295,7 +296,7 @@ class GLIPDemo(object):
             box = box.to(torch.int64)
             top_left, bottom_right = box[:2].tolist(), box[2:].tolist()
             new_image = cv2.rectangle(
-                new_image, tuple(top_left), tuple(bottom_right), tuple(color), box_pixel)
+                new_image, tuple(top_left), tuple(bottom_right), tuple([0,0,255]), box_pixel)
 
         # Following line overlays transparent rectangle over the image
         image = cv2.addWeighted(new_image, alpha, image, 1 - alpha, 0)
@@ -314,7 +315,7 @@ class GLIPDemo(object):
 
         return image
 
-    def overlay_entity_names(self, image, predictions, names=None, text_size=1.0, text_pixel=2, text_offset = 10, text_offset_original = 4):
+    def overlay_entity_names(self, image, predictions, names=None, text_size=2.0, text_pixel=2, text_offset = 10, text_offset_original = 4):
         scores = predictions.get_field("scores").tolist()
         labels = predictions.get_field("labels").tolist()
         new_labels = []
@@ -344,7 +345,7 @@ class GLIPDemo(object):
                     y -= text_offset
 
             cv2.putText(
-                image, s, (int(x), int(y)-text_offset_original), cv2.FONT_HERSHEY_SIMPLEX, text_size, (self.color, self.color, self.color), text_pixel, cv2.LINE_AA
+                image, s, (int(x), int(y)-text_offset_original), cv2.FONT_HERSHEY_SIMPLEX, text_size, (0, 0, 255), text_pixel, cv2.LINE_AA
             )
             previous_locations.append((int(x), int(y)))
 

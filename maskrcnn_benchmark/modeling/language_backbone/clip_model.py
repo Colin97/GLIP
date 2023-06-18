@@ -72,7 +72,7 @@ class CLIPTransformer(nn.Module):
 
         self.cfg = cfg
         self.use_checkpoint = cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT
-        print("LANGUAGE BACKBONE USE GRADIENT CHECKPOINTING: ", self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT)
+        #print("LANGUAGE BACKBONE USE GRADIENT CHECKPOINTING: ", self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT)
 
         self.context_length = self.cfg.MODEL.CLIP.CONTEXT_LENGTH
         self.width = self.cfg.MODEL.CLIP.WIDTH

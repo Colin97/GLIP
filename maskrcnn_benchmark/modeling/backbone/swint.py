@@ -479,7 +479,7 @@ class SwinTransformer(nn.Module):
                  backbone_arch="SWINT-FPN-RETINANET"):
         super(SwinTransformer, self).__init__()
 
-        print("VISION BACKBONE USE GRADIENT CHECKPOINTING: ", use_checkpoint)
+        #print("VISION BACKBONE USE GRADIENT CHECKPOINTING: ", use_checkpoint)
         
         self.pretrain_img_size = pretrain_img_size
         self.num_layers = len(depths)
